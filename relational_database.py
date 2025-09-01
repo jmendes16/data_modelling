@@ -80,10 +80,12 @@ def transform(df: pd.DataFrame) -> dict[str, pd.DataFrame]:
     artists_with_singles = df[df['is_single'] == True]['artist_id'].unique()
     artist_singles_album_map = {artist_id: uuid.uuid4() for artist_id in artists_with_singles}
   
-    df['album_id'] = df.apply(
-        lambda row: artist_singles_album_map.get(row['artist_id'], row['album_id']) if row['is_single'] else row['album_id'],
-        axis=1
-    )
+    def assign_album_id(row):
+        if row['is_single']:
+            return artist_singles_album_map.get(row['artist_id'])
+        return row['album_id']
+
+    df['album_id'] = df.apply(assign_album_id, axis=1)
 
     # Prepare data for normalized tables
     artists_df = df[['artist_id', 'artist_name']].drop_duplicates().set_index('artist_id')
