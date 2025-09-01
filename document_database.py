@@ -93,10 +93,9 @@ def transform(df: pd.DataFrame) -> list[dict]:
 
 def load(documents: list[dict], mongo_uri: str, db_name: str, collection_name: str):
     """
-    Loads the transformed documents into a MongoDB collection using a
-    high-performance bulk write operation.
+    Loads the transformed documents into a MongoDB collection.
     """
-    print(f"LOAD: Connecting to MongoDB and preparing for bulk insert...")
+    print(f"LOAD: Connecting to MongoDB...")
     try:
         client = MongoClient(mongo_uri)
         db = client[db_name]
