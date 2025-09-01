@@ -110,7 +110,7 @@ def generate_music_data(num_records: int, num_artists: int) -> Generator[dict[st
 
 
 if __name__ == '__main__':
-    records = generate_music_data(100, 1)
+    records = generate_music_data(500000, 2500)
 
     # Define the output file and fields
     csv_file = 'music_data.csv'
